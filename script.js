@@ -38,5 +38,5 @@ selectJob.addEventListener("input", (event) => {
 });
 
 btnCreate.addEventListener("click", () => {
-  // console.log(nameCard, phoneСard, selectCard);
+  console.log(nameCard, phoneСard, selectCard);
 });
