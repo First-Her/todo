@@ -18,17 +18,22 @@
       <div class="container">
         <div class="card">
           <input id="inputName" class="text" placeholder="Имя" />
-          <input id="inputPassword" class="password" placeholder="Телефон" />
+          <input
+            id="inputTelephone"
+            class="telephone"
+            placeholder="Телефон"
+            type="number"
+          />
           <div class="select">
             <select id="mySelect" name="options">
-              <option value="" disabled selected>Должность</option>
-              <option value="option1">developer</option>
-              <option value="option2">qa</option>
-              <option value="option3">devops</option>
-              <option value="option4">admin</option>
+              <option hidden selected>Должность</option>
+              <option value="developer">Разработчик</option>
+              <option value="qa">Тестировщик</option>
+              <option value="devops">Девопс</option>
+              <option value="admin">Админ</option>
             </select>
           </div>
-          <button type="button" class="btn">Добавить</button>
+          <button id="createBtn" type="button" class="btn">Добавить</button>
         </div>
       </div>
     </div>
