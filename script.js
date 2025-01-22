@@ -1,13 +1,11 @@
-console.log("привет")
+const inputTextName = document.getElementById("inputName");
 
-const inputTextName = document.getElementById('inputName');
-
-inputTextName.addEventListener('input', (event) => {
-    console.log(event.target.value)
+inputTextName.addEventListener("input", (event) => {
+  console.log(event.target.value);
 });
 
-const inputPassword = document.getElementById('inputPassword');
+const inputPassword = document.getElementById("inputPassword");
 
-inputPassword.addEventListener('input', (event) => {
-    console.log(event.target.value)
+inputPassword.addEventListener("input", (event) => {
+  console.log(event.target.value);
 });
