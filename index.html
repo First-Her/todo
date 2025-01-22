@@ -17,10 +17,11 @@
       <h1 class="title">Список сотрудников</h1>
       <div class="container">
         <div class="card">
-          <input class="text" />
-          <input class="password" />
+          <input id="inputName" class="text" placeholder="Имя" />
+          <input id="inputPassword" class="password" placeholder="Телефон" />
           <div class="select">
             <select id="mySelect" name="options">
+              <option value="" disabled selected>Должность</option>
               <option value="option1">developer</option>
               <option value="option2">qa</option>
               <option value="option3">devops</option>
@@ -31,5 +32,6 @@
         </div>
       </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
