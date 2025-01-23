@@ -51,7 +51,7 @@
   width: 250px;
   margin-left: 20px;
 }
-.password {
+.telephone {
   width: 250px;
   margin-left: 20px;
 }
@@ -63,4 +63,10 @@
   height: 21px;
   background-color: aliceblue;
   margin-left: 20px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
