@@ -1,10 +1,10 @@
 const inputTextName = document.getElementById("inputName");
-let nameCard = "";
 const inputTelephone = document.getElementById("inputTelephone");
-let phoneСard = "";
 const selectJob = document.getElementById("mySelect");
-let selectCard = "";
 const btnCreate = document.getElementById("createBtn");
+let nameCard = "";
+let phoneСard = "";
+let selectCard = "";
 
 inputTextName.addEventListener("input", (event) => {
   nameCard = event.target.value;
