@@ -22,6 +22,7 @@
 .card {
   width: 330px;
   height: 150px;
+  min-height: 150px;
   background-color: #91ad91;
   display: flex;
   flex-direction: column;
@@ -86,8 +87,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .main-container {
   display: flex;
   justify-content: flex-start;
-  width: 80%;
+  width: 85%;
   gap: 5px;
   flex-wrap: wrap;
   margin-top: 10px;
+  overflow: auto;
 }
