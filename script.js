@@ -15,7 +15,6 @@ inputTelephone.addEventListener("input", (event) => {
 });
 
 inputTelephone.addEventListener("keydown", (event) => {
-  console.log(event);
   if (event.key === "e") {
     event.preventDefault();
   } else if (event.key === "+") {
