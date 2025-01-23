@@ -36,7 +36,8 @@
   background-color: #ffffff7d;
   height: 800px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   border-radius: 10px;
 }
 .title {
@@ -69,4 +70,24 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.red-card {
+  background-color: rgb(123, 192, 123);
+  width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 3px;
+}
+.main-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }

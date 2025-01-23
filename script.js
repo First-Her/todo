@@ -2,6 +2,7 @@ const inputTextName = document.getElementById("inputName");
 const inputTelephone = document.getElementById("inputTelephone");
 const selectJob = document.getElementById("mySelect");
 const btnCreate = document.getElementById("createBtn");
+const blockMainContainer = document.getElementById("main-container");
 let nameCard = "";
 let phoneСard = "";
 let selectCard = "";
@@ -38,4 +39,18 @@ selectJob.addEventListener("input", (event) => {
 
 btnCreate.addEventListener("click", () => {
   console.log(nameCard, phoneСard, selectCard);
+  const newCard = document.createElement("div");
+  newCard.className = "red-card";
+
+  const textName = document.createElement("p");
+  textName.innerText = `Имя: ${nameCard}`;
+  newCard.appendChild(textName);
+  const textPhone = document.createElement("p");
+  textPhone.innerText = `Телефон: ${phoneСard}`;
+  newCard.appendChild(textPhone);
+  const textSelect = document.createElement("p");
+  textSelect.innerText = `Должность: ${selectCard}`;
+  newCard.appendChild(textSelect);
+
+  blockMainContainer.appendChild(newCard);
 });
