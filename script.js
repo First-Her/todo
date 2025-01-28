@@ -53,6 +53,12 @@ btnCreate.addEventListener("click", () => {
     })
     .replace(",", "");
 
+  const parts = textDate.split(" ");
+  const dateParts = parts[0].split(".");
+  const timeParts = parts[1].split(":");
+
+  const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
+
   if (selectCard === "qa" || selectCard === "developer") {
     newCard.className = "green-card";
   } else if (selectCard === "admin") {
@@ -71,7 +77,7 @@ btnCreate.addEventListener("click", () => {
   textSelect.innerText = `Должность: ${selectCard}`;
   newCard.appendChild(textSelect);
   const extensionDate = document.createElement("p");
-  extensionDate.innerText = `Дата: ${textDate}`;
+  extensionDate.innerText = `Дата: ${formattedDate}`;
   newCard.appendChild(extensionDate);
 
   blockMainContainer.appendChild(newCard);
