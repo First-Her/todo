@@ -38,9 +38,34 @@ selectJob.addEventListener("input", (event) => {
 });
 
 btnCreate.addEventListener("click", () => {
-  console.log(nameCard, phoneСard, selectCard);
   const newCard = document.createElement("div");
+  const date = new Date();
   newCard.className = "green-card";
+
+  const textDate = date
+    .toLocaleString("ru-RU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+    .replace(",", "");
+
+  const parts = textDate.split(" ");
+  const dateParts = parts[0].split(".");
+  const timeParts = parts[1].split(":");
+
+  const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
+
+  if (selectCard === "qa" || selectCard === "developer") {
+    newCard.className = "green-card";
+  } else if (selectCard === "admin") {
+    newCard.className = "red-card";
+  } else if (selectCard === "devops") {
+    newCard.className = "yellow-card";
+  }
 
   const textName = document.createElement("p");
   textName.innerText = `Имя: ${nameCard}`;
@@ -51,6 +76,9 @@ btnCreate.addEventListener("click", () => {
   const textSelect = document.createElement("p");
   textSelect.innerText = `Должность: ${selectCard}`;
   newCard.appendChild(textSelect);
+  const extensionDate = document.createElement("p");
+  extensionDate.innerText = `Дата: ${formattedDate}`;
+  newCard.appendChild(extensionDate);
 
   blockMainContainer.appendChild(newCard);
 });
