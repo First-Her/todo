@@ -40,7 +40,7 @@ selectJob.addEventListener("input", (event) => {
 btnCreate.addEventListener("click", () => {
   console.log(nameCard, phoneСard, selectCard);
   const newCard = document.createElement("div");
-  newCard.className = "red-card";
+  newCard.className = "green-card";
 
   const textName = document.createElement("p");
   textName.innerText = `Имя: ${nameCard}`;
