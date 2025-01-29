@@ -59,12 +59,17 @@ btnCreate.addEventListener("click", () => {
 
   const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
 
-  if (selectCard === "qa" || selectCard === "developer") {
-    newCard.className = "green-card";
-  } else if (selectCard === "admin") {
-    newCard.className = "red-card";
-  } else if (selectCard === "devops") {
-    newCard.className = "yellow-card";
+  switch (selectCard) {
+    case "qa":
+    case "developer":
+      newCard.className = "green-card";
+      break;
+    case "admin":
+      newCard.className = "red-card";
+      break;
+    case "devops":
+      newCard.className = "yellow-card";
+      break;
   }
 
   const textName = document.createElement("p");
