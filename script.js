@@ -61,6 +61,8 @@ btnCreate.addEventListener("click", () => {
 
   switch (selectCard) {
     case "qa":
+      newCard.className = "green-card";
+      break;
     case "developer":
       newCard.className = "green-card";
       break;
