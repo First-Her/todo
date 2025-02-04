@@ -7,6 +7,52 @@ let nameCard = "";
 let phoneСard = "";
 let selectCard = "";
 
+const dataStringLs = localStorage.getItem("uzers");
+const dataLs = JSON.parse(dataStringLs);
+
+let dataCard = [];
+if (dataLs) {
+  dataCard = dataLs;
+}
+
+function render() {
+  blockMainContainer.innerHTML = "";
+  dataCard.forEach((item) => {
+    const newCard = document.createElement("div");
+
+    switch (item.job) {
+      case "qa":
+        newCard.className = "green-card";
+        break;
+      case "developer":
+        newCard.className = "green-card";
+        break;
+      case "admin":
+        newCard.className = "red-card";
+        break;
+      case "devops":
+        newCard.className = "yellow-card";
+        break;
+    }
+
+    const textName = document.createElement("p");
+    textName.innerText = `Имя: ${item.name}`;
+    newCard.appendChild(textName);
+    const textPhone = document.createElement("p");
+    textPhone.innerText = `Телефон: ${item.phone}`;
+    newCard.appendChild(textPhone);
+    const textSelect = document.createElement("p");
+    textSelect.innerText = `Должность: ${item.job}`;
+    newCard.appendChild(textSelect);
+    const extensionDate = document.createElement("p");
+    extensionDate.innerText = `Дата: ${item.date}`;
+    newCard.appendChild(extensionDate);
+
+    blockMainContainer.appendChild(newCard);
+  });
+}
+render();
+
 inputTextName.addEventListener("input", (event) => {
   nameCard = event.target.value;
 });
@@ -38,10 +84,7 @@ selectJob.addEventListener("input", (event) => {
 });
 
 btnCreate.addEventListener("click", () => {
-  const newCard = document.createElement("div");
   const date = new Date();
-  newCard.className = "green-card";
-
   const textDate = date
     .toLocaleString("ru-RU", {
       year: "numeric",
@@ -59,33 +102,13 @@ btnCreate.addEventListener("click", () => {
 
   const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
 
-  switch (selectCard) {
-    case "qa":
-      newCard.className = "green-card";
-      break;
-    case "developer":
-      newCard.className = "green-card";
-      break;
-    case "admin":
-      newCard.className = "red-card";
-      break;
-    case "devops":
-      newCard.className = "yellow-card";
-      break;
-  }
-
-  const textName = document.createElement("p");
-  textName.innerText = `Имя: ${nameCard}`;
-  newCard.appendChild(textName);
-  const textPhone = document.createElement("p");
-  textPhone.innerText = `Телефон: ${phoneСard}`;
-  newCard.appendChild(textPhone);
-  const textSelect = document.createElement("p");
-  textSelect.innerText = `Должность: ${selectCard}`;
-  newCard.appendChild(textSelect);
-  const extensionDate = document.createElement("p");
-  extensionDate.innerText = `Дата: ${formattedDate}`;
-  newCard.appendChild(extensionDate);
-
-  blockMainContainer.appendChild(newCard);
+  const uzer = {
+    name: nameCard,
+    phone: phoneСard,
+    job: selectCard,
+    date: formattedDate,
+  };
+  dataCard.push(uzer);
+  localStorage.setItem("uzers", JSON.stringify(dataCard));
+  render();
 });
