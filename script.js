@@ -6,8 +6,9 @@ const blockMainContainer = document.getElementById("main-container");
 let nameCard = "";
 let phoneСard = "";
 let selectCard = "";
+let editIndex = null;
 
-const dataStringLs = localStorage.getItem("uzers");
+const dataStringLs = localStorage.getItem("users");
 const dataLs = JSON.parse(dataStringLs);
 
 let dataCard = [];
@@ -17,9 +18,11 @@ if (dataLs) {
 
 function render() {
   blockMainContainer.innerHTML = "";
+  let id = 0;
   dataCard.forEach((item) => {
     const newCard = document.createElement("div");
-
+    newCard.id = id++;
+    console.log(item);
     switch (item.job) {
       case "qa":
         newCard.className = "green-card";
@@ -35,6 +38,26 @@ function render() {
         break;
     }
 
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "button-container";
+
+
+    const editingButton = document.createElement("img");
+    editingButton.src = "images/icons8-редактировать.svg";
+    editingButton.className = "editor";
+    editingButton.addEventListener("click", () => {
+      editIndex = newCard.id;
+      inputTextName.value = item.name;
+      inputTelephone.value = item.phone;
+      selectJob.value = item.job;
+    });
+    buttonContainer.appendChild(editingButton);
+    newCard.appendChild(buttonContainer);
+
+
+
+
+
     const textName = document.createElement("p");
     textName.innerText = `Имя: ${item.name}`;
     newCard.appendChild(textName);
@@ -47,6 +70,23 @@ function render() {
     const extensionDate = document.createElement("p");
     extensionDate.innerText = `Дата: ${item.date}`;
     newCard.appendChild(extensionDate);
+
+  
+
+
+    const deleteButton = document.createElement("img");
+    deleteButton.src = "images/icons8-удалить.svg";
+    deleteButton.className = "delete-button";
+    deleteButton.addEventListener("click", () => {
+      dataCard.splice(newCard.id, 1);
+      localStorage.setItem("users", JSON.stringify(dataCard));
+      render();
+    });
+    buttonContainer.appendChild(deleteButton);
+    newCard.appendChild(buttonContainer);
+
+
+
 
     blockMainContainer.appendChild(newCard);
   });
@@ -102,13 +142,19 @@ btnCreate.addEventListener("click", () => {
 
   const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
 
-  const uzer = {
+  const user = {
     name: nameCard,
     phone: phoneСard,
     job: selectCard,
     date: formattedDate,
   };
-  dataCard.push(uzer);
-  localStorage.setItem("uzers", JSON.stringify(dataCard));
+  if (editIndex !== null) {
+    dataCard[editIndex] = user;
+    editIndex = null;
+  } else {
+    dataCard.push(user);
+  }
+
+  localStorage.setItem("users", JSON.stringify(dataCard));
   render();
 });

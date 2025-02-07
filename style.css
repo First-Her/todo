@@ -26,10 +26,10 @@
   background-color: #91ad91;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 5px;
   align-items: flex-start;
   border-radius: 10px;
+  justify-content: center;
 }
 .container {
   padding-top: 15px;
@@ -116,4 +116,19 @@ input[type="number"]::-webkit-inner-spin-button {
   flex-wrap: wrap;
   margin-top: 10px;
   overflow: auto;
+}
+/* .buttonContainer {
+  margin-top: 10px;
+  bottom: 10px;
+  right: 10px;
+} */
+.delete-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.editor {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
