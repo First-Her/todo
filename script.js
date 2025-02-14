@@ -22,7 +22,6 @@ function render() {
   dataCard.forEach((item) => {
     const newCard = document.createElement("div");
     newCard.id = id++;
-    console.log(item);
     switch (item.job) {
       case "qa":
         newCard.className = "green-card";
@@ -41,22 +40,58 @@ function render() {
     const buttonContainer = document.createElement("div");
     buttonContainer.className = "button-container";
 
-
     const editingButton = document.createElement("img");
     editingButton.src = "images/icons8-редактировать.svg";
     editingButton.className = "editor";
     editingButton.addEventListener("click", () => {
-      editIndex = newCard.id;
-      inputTextName.value = item.name;
-      inputTelephone.value = item.phone;
-      selectJob.value = item.job;
+      const inputName = document.createElement("input");
+      inputName.value = item.name;
+      const inputPhone = document.createElement("input");
+      inputPhone.type = "tel";
+      inputPhone.value = item.phone;
+      inputPhone.addEventListener("input", (event) => {
+        inputPhone.value = inputPhone.value.replace(/\D/g, "");
+      });
+
+      const selectJobEdit = document.createElement("select");
+      ["qa", "developer", "admin", "devops"].forEach((job) => {
+        const option = document.createElement("option");
+        option.value = job;
+        option.textContent = job.charAt(0).toUpperCase() + job.slice(1);
+        if (job === item.job) option.selected = true;
+        selectJobEdit.appendChild(option);
+      });
+
+      const saveButton = document.createElement("button");
+      saveButton.innerText = "Сохранить";
+      saveButton.addEventListener("click", () => {
+        item.name = inputName.value;
+        item.phone = inputPhone.value;
+        item.job = selectJobEdit.value;
+        localStorage.setItem("users", JSON.stringify(dataCard));
+        render();
+      });
+
+      newCard.innerHTML = "";
+      newCard.appendChild(inputName);
+      newCard.appendChild(inputPhone);
+      newCard.appendChild(selectJobEdit);
+      newCard.appendChild(saveButton);
+
+      const deleteButton = document.createElement("img");
+      deleteButton.src = "images/icons8-удалить.svg";
+      deleteButton.className = "delete-button";
+      deleteButton.addEventListener("click", () => {
+        dataCard.splice(newCard.id, 1);
+        localStorage.setItem("users", JSON.stringify(dataCard));
+        render();
+      });
+      buttonContainer.appendChild(deleteButton);
+      newCard.appendChild(buttonContainer);
     });
+
     buttonContainer.appendChild(editingButton);
     newCard.appendChild(buttonContainer);
-
-
-
-
 
     const textName = document.createElement("p");
     textName.innerText = `Имя: ${item.name}`;
@@ -71,9 +106,6 @@ function render() {
     extensionDate.innerText = `Дата: ${item.date}`;
     newCard.appendChild(extensionDate);
 
-  
-
-
     const deleteButton = document.createElement("img");
     deleteButton.src = "images/icons8-удалить.svg";
     deleteButton.className = "delete-button";
@@ -84,9 +116,6 @@ function render() {
     });
     buttonContainer.appendChild(deleteButton);
     newCard.appendChild(buttonContainer);
-
-
-
 
     blockMainContainer.appendChild(newCard);
   });

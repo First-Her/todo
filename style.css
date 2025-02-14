@@ -83,6 +83,7 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
 .red-card {
   background-color: red;
@@ -95,6 +96,7 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
 .yellow-card {
   background-color: yellow;
@@ -107,6 +109,7 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
 .main-container {
   display: flex;
@@ -117,18 +120,25 @@ input[type="number"]::-webkit-inner-spin-button {
   margin-top: 10px;
   overflow: auto;
 }
-/* .buttonContainer {
+.button-container {
   margin-top: 10px;
   bottom: 10px;
   right: 10px;
-} */
+}
 .delete-button {
   width: 24px;
   height: 24px;
   cursor: pointer;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
 }
 .editor {
   width: 24px;
   height: 24px;
   cursor: pointer;
+  position: absolute;
+
+  right: 2px;
+  top: 2px;
 }
