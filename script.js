@@ -7,6 +7,7 @@ let nameCard = "";
 let phoneСard = "";
 let selectCard = "";
 let editIndex = null;
+let editJob = ["qa", "developer", "admin", "devops"];
 
 const dataStringLs = localStorage.getItem("users");
 const dataLs = JSON.parse(dataStringLs);
@@ -47,14 +48,32 @@ function render() {
       const inputName = document.createElement("input");
       inputName.value = item.name;
       const inputPhone = document.createElement("input");
-      inputPhone.type = "tel";
+      inputPhone.type = "number";
       inputPhone.value = item.phone;
-      inputPhone.addEventListener("input", (event) => {
-        inputPhone.value = inputPhone.value.replace(/\D/g, "");
+      inputPhone.addEventListener("keydown", (event) => {
+        if (event.key === "e" || event.key === "E") {
+          event.preventDefault();
+        }
       });
 
+      const nameContainer = document.createElement("div");
+      const labelName = document.createElement("label");
+      labelName.textContent = "Имя:";
+      labelName.htmlFor = "inputName";
+      nameContainer.className = "input-name";
+      nameContainer.appendChild(labelName);
+      nameContainer.appendChild(inputName);
+
+      const phoneContainer = document.createElement("div");
+      const labelPhone = document.createElement("label");
+      labelPhone.textContent = "Телефон:";
+      labelPhone.htmlFor = "inputPhone";
+      phoneContainer.className = "input-phone";
+      phoneContainer.appendChild(labelPhone);
+      phoneContainer.appendChild(inputPhone);
+
       const selectJobEdit = document.createElement("select");
-      ["qa", "developer", "admin", "devops"].forEach((job) => {
+      editJob.forEach((job) => {
         const option = document.createElement("option");
         option.value = job;
         option.textContent = job.charAt(0).toUpperCase() + job.slice(1);
@@ -62,8 +81,28 @@ function render() {
         selectJobEdit.appendChild(option);
       });
 
-      const saveButton = document.createElement("button");
-      saveButton.innerText = "Сохранить";
+      const selectContainer = document.createElement("div");
+      const labelSelectJobEdit = document.createElement("label");
+      labelSelectJobEdit.textContent = "Должность:";
+      labelSelectJobEdit.htmlFor = "inputSelectJobEdit";
+      selectContainer.className = "input-select";
+      selectContainer.appendChild(labelSelectJobEdit);
+      selectContainer.appendChild(selectJobEdit);
+
+      const cancellation = document.createElement("img");
+      cancellation.src = "images/icons8-отмена.svg";
+      cancellation.className = "cancellation-button";
+      cancellation.addEventListener("click", () => {
+        item.name = inputName.value;
+        item.phone = inputPhone.value;
+        item.job = selectJobEdit.value;
+        localStorage.setItem("users", JSON.stringify(dataCard));
+        render();
+      });
+
+      const saveButton = document.createElement("img");
+      saveButton.src = "images/icons8-ок.svg";
+      saveButton.className = "save-button";
       saveButton.addEventListener("click", () => {
         item.name = inputName.value;
         item.phone = inputPhone.value;
@@ -73,10 +112,11 @@ function render() {
       });
 
       newCard.innerHTML = "";
-      newCard.appendChild(inputName);
-      newCard.appendChild(inputPhone);
-      newCard.appendChild(selectJobEdit);
+      newCard.appendChild(nameContainer);
+      newCard.appendChild(phoneContainer);
+      newCard.appendChild(selectContainer);
       newCard.appendChild(saveButton);
+      newCard.appendChild(cancellation);
 
       const deleteButton = document.createElement("img");
       deleteButton.src = "images/icons8-удалить.svg";
@@ -86,8 +126,6 @@ function render() {
         localStorage.setItem("users", JSON.stringify(dataCard));
         render();
       });
-      buttonContainer.appendChild(deleteButton);
-      newCard.appendChild(buttonContainer);
     });
 
     buttonContainer.appendChild(editingButton);
