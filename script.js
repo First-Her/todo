@@ -45,6 +45,7 @@ function render() {
     editingButton.src = "images/icons8-редактировать.svg";
     editingButton.className = "editor";
     editingButton.addEventListener("click", () => {
+      const originalItem = { ...item };
       const inputName = document.createElement("input");
       inputName.value = item.name;
       const inputPhone = document.createElement("input");
@@ -93,9 +94,9 @@ function render() {
       cancellation.src = "images/icons8-отмена.svg";
       cancellation.className = "cancellation-button";
       cancellation.addEventListener("click", () => {
-        item.name = inputName.value;
-        item.phone = inputPhone.value;
-        item.job = selectJobEdit.value;
+        item.name = originalItem.name;
+        item.phone = originalItem.phone;
+        item.job = originalItem.job;
         localStorage.setItem("users", JSON.stringify(dataCard));
         render();
       });
@@ -224,4 +225,8 @@ btnCreate.addEventListener("click", () => {
 
   localStorage.setItem("users", JSON.stringify(dataCard));
   render();
+
+  inputTextName.value = "";
+  inputTelephone.value = "";
+  selectJob.value = "";
 });
