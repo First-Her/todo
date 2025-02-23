@@ -11,12 +11,13 @@ let editJob = ["qa", "developer", "admin", "devops"];
 btnCreate.disabled = true;
 
 function fieldChecking() {
-  if (nameCard.length > 0 && phoneСard.length === 11 && selectCard !== "" && selectCard !== "Должность") {
+  if (nameCard.length > 0 && phoneСard.length === 11 && selectCard.length > 0) {
     btnCreate.disabled = false;
   } else {
     btnCreate.disabled = true;
   }
 };
+
 
 // const dataStringLs = localStorage.getItem("users");
 // const dataLs = JSON.parse(dataStringLs);
@@ -58,6 +59,7 @@ function render() {
         newCard.className = "yellow-card";
         break;
     }
+
 
     const buttonContainer = document.createElement("div");
     buttonContainer.className = "button-container";
@@ -185,12 +187,13 @@ render();
 
 inputTextName.addEventListener("input", (event) => {
   nameCard = event.target.value;
-  fieldChecking()
+  fieldChecking();
 });
+
 
 inputTelephone.addEventListener("input", (event) => {
   phoneСard = event.target.value;
-  fieldChecking()
+  fieldChecking();
 });
 
 inputTelephone.addEventListener("keydown", (event) => {
@@ -213,10 +216,12 @@ inputTelephone.addEventListener("keydown", (event) => {
 
 selectJob.addEventListener("input", (event) => {
   selectCard = event.target.value;
-  fieldChecking()
+  fieldChecking();
 });
 
+
 btnCreate.addEventListener("click", () => {
+  btnCreate.disabled = true;
   const date = new Date();
   const textDate = date
     .toLocaleString("ru-RU", {
@@ -228,6 +233,7 @@ btnCreate.addEventListener("click", () => {
       second: "2-digit",
     })
     .replace(",", "");
+
 
   const parts = textDate.split(" ");
   const dateParts = parts[0].split(".");
