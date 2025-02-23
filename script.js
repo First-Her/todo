@@ -8,14 +8,35 @@ let phoneСard = "";
 let selectCard = "";
 let editIndex = null;
 let editJob = ["qa", "developer", "admin", "devops"];
+btnCreate.disabled = true;
 
-const dataStringLs = localStorage.getItem("users");
-const dataLs = JSON.parse(dataStringLs);
+function fieldChecking() {
+  if (nameCard.length > 0 && phoneСard.length === 11 && selectCard !== "" && selectCard !== "Должность") {
+    btnCreate.disabled = false;
+  } else {
+    btnCreate.disabled = true;
+  }
+};
+
+// const dataStringLs = localStorage.getItem("users");
+// const dataLs = JSON.parse(dataStringLs);
 
 let dataCard = [];
-if (dataLs) {
-  dataCard = dataLs;
+// if (dataLs) {
+//   dataCard = dataLs;
+// }
+
+
+async function getData() {
+  fetch("http://localhost:8080/task/all", {
+    method: "Get"
+  }).then((response) => response.json()).then((res) => {
+    dataCard = res;
+    render()
+    console.log(res, "res")
+  }).catch((error) => console.log(error, "error"))
 }
+getData();
 
 function render() {
   blockMainContainer.innerHTML = "";
@@ -161,12 +182,15 @@ function render() {
 }
 render();
 
+
 inputTextName.addEventListener("input", (event) => {
   nameCard = event.target.value;
+  fieldChecking()
 });
 
 inputTelephone.addEventListener("input", (event) => {
   phoneСard = event.target.value;
+  fieldChecking()
 });
 
 inputTelephone.addEventListener("keydown", (event) => {
@@ -189,6 +213,7 @@ inputTelephone.addEventListener("keydown", (event) => {
 
 selectJob.addEventListener("input", (event) => {
   selectCard = event.target.value;
+  fieldChecking()
 });
 
 btnCreate.addEventListener("click", () => {
@@ -228,5 +253,5 @@ btnCreate.addEventListener("click", () => {
 
   inputTextName.value = "";
   inputTelephone.value = "";
-  selectJob.value = "";
+  selectJob.value = "Должность";
 });
