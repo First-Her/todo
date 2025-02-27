@@ -16,54 +16,38 @@ function fieldChecking() {
   } else {
     btnCreate.disabled = true;
   }
-};
-
+}
 
 // const dataStringLs = localStorage.getItem("users");
 // const dataLs = JSON.parse(dataStringLs);
 
 let dataCard = [];
-// if (dataLs) {
-//   dataCard = dataLs;
-// }
-
 
 async function getData() {
   fetch("http://localhost:8080/task/all", {
-    method: "Get"
-  }).then((response) => response.json()).then((res) => {
-    dataCard = res;
-    render()
-    console.log(res, "res")
-  }).catch((error) => console.log(error, "error"))
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((res) => {
+      dataCard = res;
+      render();
+      console.log(res, "res");
+    })
+    .catch((error) => console.log(error, "error"));
 }
 getData();
 
-async function postData() {
-  try {
-    const response = fetch ("http://localhost:8080/task", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {
-        name: JSON.stringify(nameCard),
-        phone: JSON.stringify(phoneСard),
-        jobPosition: JSON.stringify(selectCard),
-      }
-    });
-console.log(JSON)
-    if (!response.ok) {
-      throw new Error('Сетевая ошибка');
-    }
-    const result = response.json();
-    return result;
-  } catch (error) {
-    console.log('Ошибка:', error);
-  }
-};
-
-
+async function postData(user) {
+  fetch("http://localhost:8080/task", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => getData())
+    .catch((e) => console.log(e));
+}
 
 function render() {
   blockMainContainer.innerHTML = "";
@@ -85,7 +69,6 @@ function render() {
         newCard.className = "yellow-card";
         break;
     }
-
 
     const buttonContainer = document.createElement("div");
     buttonContainer.className = "button-container";
@@ -210,12 +193,10 @@ function render() {
 }
 render();
 
-
 inputTextName.addEventListener("input", (event) => {
   nameCard = event.target.value;
   fieldChecking();
 });
-
 
 inputTelephone.addEventListener("input", (event) => {
   phoneСard = event.target.value;
@@ -245,50 +226,16 @@ selectJob.addEventListener("input", (event) => {
   fieldChecking();
 });
 
-
 btnCreate.addEventListener("click", () => {
   btnCreate.disabled = true;
-  const date = new Date();
-  const textDate = date
-    .toLocaleString("ru-RU", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })
-    .replace(",", "");
-
-
-  const parts = textDate.split(" ");
-  const dateParts = parts[0].split(".");
-  const timeParts = parts[1].split(":");
-
-  const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
-
   const user = {
     name: nameCard,
     phone: phoneСard,
-    job: selectCard,
-    date: formattedDate,
+    jobPosition: selectCard,
   };
 
-  postData('http://localhost:8080/task', user)
-    .then(dataCard => {
-      console.log('Успех:', dataCard);
-    });
-
-
-  if (editIndex !== null) {
-    dataCard[editIndex] = user;
-    editIndex = null;
-  } else {
-    dataCard.push(user);
-  }
-
-
-  localStorage.setItem("users", JSON.stringify(dataCard));
+  postData(user);
+  // localStorage.setItem("users", JSON.stringify(dataCard));
   render();
 
   inputTextName.value = "";
