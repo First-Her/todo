@@ -39,6 +39,32 @@ async function getData() {
 }
 getData();
 
+async function postData() {
+  try {
+    const response = fetch ("http://localhost:8080/task", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        name: JSON.stringify(nameCard),
+        phone: JSON.stringify(phoneСard),
+        jobPosition: JSON.stringify(selectCard),
+      }
+    });
+console.log(JSON)
+    if (!response.ok) {
+      throw new Error('Сетевая ошибка');
+    }
+    const result = response.json();
+    return result;
+  } catch (error) {
+    console.log('Ошибка:', error);
+  }
+};
+
+
+
 function render() {
   blockMainContainer.innerHTML = "";
   let id = 0;
@@ -247,12 +273,20 @@ btnCreate.addEventListener("click", () => {
     job: selectCard,
     date: formattedDate,
   };
+
+  postData('http://localhost:8080/task', user)
+    .then(dataCard => {
+      console.log('Успех:', dataCard);
+    });
+
+
   if (editIndex !== null) {
     dataCard[editIndex] = user;
     editIndex = null;
   } else {
     dataCard.push(user);
   }
+
 
   localStorage.setItem("users", JSON.stringify(dataCard));
   render();
