@@ -18,15 +18,7 @@ function fieldChecking() {
   }
 };
 
-
-// const dataStringLs = localStorage.getItem("users");
-// const dataLs = JSON.parse(dataStringLs);
-
 let dataCard = [];
-// if (dataLs) {
-//   dataCard = dataLs;
-// }
-
 
 async function getData() {
   fetch("http://localhost:8080/task/all", {
@@ -39,29 +31,18 @@ async function getData() {
 }
 getData();
 
-async function postData() {
-  try {
-    const response = fetch ("http://localhost:8080/task", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {
-        name: JSON.stringify(nameCard),
-        phone: JSON.stringify(phoneСard),
-        jobPosition: JSON.stringify(selectCard),
-      }
-    });
-console.log(JSON)
-    if (!response.ok) {
-      throw new Error('Сетевая ошибка');
-    }
-    const result = response.json();
-    return result;
-  } catch (error) {
-    console.log('Ошибка:', error);
-  }
-};
+
+async function postData(user) {
+  fetch("http://localhost:8080/task", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => getData())
+    .catch((e) => console.log(e));
+}
 
 
 
@@ -69,9 +50,10 @@ function render() {
   blockMainContainer.innerHTML = "";
   let id = 0;
   dataCard.forEach((item) => {
+    console.log(item)
     const newCard = document.createElement("div");
     newCard.id = id++;
-    switch (item.job) {
+    switch (item.jobPosition) {
       case "qa":
         newCard.className = "green-card";
         break;
@@ -123,11 +105,11 @@ function render() {
       phoneContainer.appendChild(inputPhone);
 
       const selectJobEdit = document.createElement("select");
-      editJob.forEach((job) => {
+      editJob.forEach((jobPosition) => {
         const option = document.createElement("option");
-        option.value = job;
-        option.textContent = job.charAt(0).toUpperCase() + job.slice(1);
-        if (job === item.job) option.selected = true;
+        option.value = jobPosition;
+        option.textContent = jobPosition.charAt(0).toUpperCase() + jobPosition.slice(1);
+        if (jobPosition === item.jobPosition) option.selected = true;
         selectJobEdit.appendChild(option);
       });
 
@@ -145,7 +127,7 @@ function render() {
       cancellation.addEventListener("click", () => {
         item.name = originalItem.name;
         item.phone = originalItem.phone;
-        item.job = originalItem.job;
+        item.jobPosition = originalItem.jobPosition;
         localStorage.setItem("users", JSON.stringify(dataCard));
         render();
       });
@@ -156,7 +138,7 @@ function render() {
       saveButton.addEventListener("click", () => {
         item.name = inputName.value;
         item.phone = inputPhone.value;
-        item.job = selectJobEdit.value;
+        item.jobPosition = selectJobEdit.value;
         localStorage.setItem("users", JSON.stringify(dataCard));
         render();
       });
@@ -188,10 +170,10 @@ function render() {
     textPhone.innerText = `Телефон: ${item.phone}`;
     newCard.appendChild(textPhone);
     const textSelect = document.createElement("p");
-    textSelect.innerText = `Должность: ${item.job}`;
+    textSelect.innerText = `Должность: ${item.jobPosition}`;
     newCard.appendChild(textSelect);
     const extensionDate = document.createElement("p");
-    extensionDate.innerText = `Дата: ${item.date}`;
+    extensionDate.innerText = `Дата: ${item.createDate}`;
     newCard.appendChild(extensionDate);
 
     const deleteButton = document.createElement("img");
@@ -248,48 +230,15 @@ selectJob.addEventListener("input", (event) => {
 
 btnCreate.addEventListener("click", () => {
   btnCreate.disabled = true;
-  const date = new Date();
-  const textDate = date
-    .toLocaleString("ru-RU", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })
-    .replace(",", "");
-
-
-  const parts = textDate.split(" ");
-  const dateParts = parts[0].split(".");
-  const timeParts = parts[1].split(":");
-
-  const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
 
   const user = {
     name: nameCard,
     phone: phoneСard,
-    job: selectCard,
-    date: formattedDate,
+    jobPosition: selectCard,
   };
 
-  postData('http://localhost:8080/task', user)
-    .then(dataCard => {
-      console.log('Успех:', dataCard);
-    });
-
-
-  if (editIndex !== null) {
-    dataCard[editIndex] = user;
-    editIndex = null;
-  } else {
-    dataCard.push(user);
-  }
-
-
-  localStorage.setItem("users", JSON.stringify(dataCard));
   render();
+  postData(user);
 
   inputTextName.value = "";
   inputTelephone.value = "";
