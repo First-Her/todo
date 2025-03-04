@@ -44,6 +44,15 @@ async function postData(user) {
     .catch((e) => console.log(e));
 }
 
+async function deleteData(id) {
+  console.log(id)
+  fetch(`http://localhost:8080/task/${id}`, {
+    method: "DELETE",
+  })
+    .then((res) => getData())
+    .catch((e) => console.log(e));
+};
+
 
 
 function render() {
@@ -149,15 +158,6 @@ function render() {
       newCard.appendChild(selectContainer);
       newCard.appendChild(saveButton);
       newCard.appendChild(cancellation);
-
-      const deleteButton = document.createElement("img");
-      deleteButton.src = "images/icons8-удалить.svg";
-      deleteButton.className = "delete-button";
-      deleteButton.addEventListener("click", () => {
-        dataCard.splice(newCard.id, 1);
-        localStorage.setItem("users", JSON.stringify(dataCard));
-        render();
-      });
     });
 
     buttonContainer.appendChild(editingButton);
@@ -180,8 +180,7 @@ function render() {
     deleteButton.src = "images/icons8-удалить.svg";
     deleteButton.className = "delete-button";
     deleteButton.addEventListener("click", () => {
-      dataCard.splice(newCard.id, 1);
-      localStorage.setItem("users", JSON.stringify(dataCard));
+      deleteData(item.id);
       render();
     });
     buttonContainer.appendChild(deleteButton);
@@ -244,3 +243,16 @@ btnCreate.addEventListener("click", () => {
   inputTelephone.value = "";
   selectJob.value = "Должность";
 });
+
+
+
+
+
+// URL - http://localhost:8080/task/${1}
+// method: "DELETE"
+// headres: вроде ниче нет
+// body - нет
+
+// В пост запросе ты передавал данные через body, тут ты познакомишься с передачей данных через query
+// тут еще проще, они формируются в самом урле
+// То есть по урлу если кликнул по карточке с id = 1, то урл должен выглядеть так http://localhost:8080/task/1
