@@ -28,7 +28,7 @@ async function getData() {
     render()
     console.log(res, "res")
   }).catch((error) => console.log(error, "error"))
-}
+};
 getData();
 
 
@@ -42,10 +42,9 @@ async function postData(user) {
   })
     .then((res) => getData())
     .catch((e) => console.log(e));
-}
+};
 
 async function deleteData(id) {
-  console.log(id)
   fetch(`http://localhost:8080/task/${id}`, {
     method: "DELETE",
   })
@@ -53,7 +52,18 @@ async function deleteData(id) {
     .catch((e) => console.log(e));
 };
 
-
+async function putData(id, user) {
+  console.log(id, user)
+  fetch(`http://localhost:8080/task/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => getData())
+    .catch((e) => console.log(e));
+}
 
 function render() {
   blockMainContainer.innerHTML = "";
@@ -148,7 +158,11 @@ function render() {
         item.name = inputName.value;
         item.phone = inputPhone.value;
         item.jobPosition = selectJobEdit.value;
-        localStorage.setItem("users", JSON.stringify(dataCard));
+        putData(item.id, {
+          name: item.name,
+          phone: item.phone,
+          jobPosition: item.jobPosition,
+        });
         render();
       });
 
