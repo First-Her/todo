@@ -20,51 +20,107 @@ function fieldChecking() {
 
 let dataCard = [];
 
+// async function getData() {
+//   fetch("http://localhost:8080/task/all", {
+//     method: "GET"
+//   }).then((response) => response.json()).then((res) => {
+//     if (res) {
+//       dataCard = res;
+//       render()
+//     };
+//   }).catch((error) => console.log(error, "error"))
+// };
+// getData();
+
 async function getData() {
-  fetch("http://localhost:8080/task/all", {
-    method: "Get"
-  }).then((response) => response.json()).then((res) => {
-    dataCard = res;
-    render()
-    console.log(res, "res")
-  }).catch((error) => console.log(error, "error"))
-};
+  try {
+    const response = await fetch("http://localhost:8080/task/all", {
+      method: "GET",
+    });
+    if (response) {
+      const data = await response.json();
+      dataCard = data;
+      render()
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 getData();
 
 
+// async function postData(user) {
+//   fetch("http://localhost:8080/task", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(user),
+//   })
+//     .then((res) => { if (res) getData() })
+//     .catch((e) => console.log(e));
+// };
 
 async function postData(user) {
-  fetch("http://localhost:8080/task", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  })
-    .then((res) => getData())
-    .catch((e) => console.log(e));
+  try {
+    const response = await fetch("http://localhost:8080/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+    if (response) {
+      await response.json();
+      getData()
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 
 async function deleteData(id) {
-  fetch(`http://localhost:8080/task/${id}`, {
-    method: "DELETE",
-  })
-    .then((res) => getData())
-    .catch((e) => console.log(e));
+  try {
+    const response = await fetch(`http://localhost:8080/task/${id}`, {
+      method: "DELETE",
+    })
+    if (response) {
+      getData()
+    }
+  } catch (error) {
+    console.log(error)
+  };
 };
 
+// async function putData(id, user) {
+//   fetch(`http://localhost:8080/task/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(user),
+//   })
+//     .then((res) => { if (res) getData() })
+//     .catch((e) => console.log(e));
+// }
+
 async function putData(id, user) {
-  console.log(id, user)
-  fetch(`http://localhost:8080/task/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  })
-    .then((res) => getData())
-    .catch((e) => console.log(e));
-}
+  try {
+    const response = await fetch(`http://localhost:8080/task/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+    if (response) {
+      await getData()
+    }
+  } catch (error) {
+    console.log(e);А
+  }
+};
 
 function render() {
   blockMainContainer.innerHTML = "";
@@ -242,7 +298,7 @@ selectJob.addEventListener("input", (event) => {
 });
 
 
-btnCreate.addEventListener("click", () => {
+btnCreate.addEventListener("click", async () => {
   btnCreate.disabled = true;
 
   const user = {
@@ -251,12 +307,17 @@ btnCreate.addEventListener("click", () => {
     jobPosition: selectCard,
   };
 
-  render();
-  postData(user);
+  try {
+    await postData(user);
+    await getData();
+    render()
 
-  inputTextName.value = "";
-  inputTelephone.value = "";
-  selectJob.value = "Должность";
+    inputTextName.value = "";
+    inputTelephone.value = "";
+    selectJob.value = "Должность";
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 
