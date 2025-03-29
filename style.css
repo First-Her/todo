@@ -2,11 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
 * {
   font-family: "Roboto", "sans-serif";
   font-size: 14px;
   font-weight: 400;
 }
+
 .main {
   background: url("images/website.jpg");
   width: 100%;
@@ -19,6 +21,7 @@
   flex-wrap: nowrap;
   flex-direction: column;
 }
+
 .card {
   width: 330px;
   height: 150px;
@@ -26,11 +29,12 @@
   background-color: #91ad91;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 5px;
   align-items: flex-start;
   border-radius: 10px;
+  justify-content: center;
 }
+
 .container {
   padding-top: 15px;
   width: 80%;
@@ -41,6 +45,7 @@
   align-items: center;
   border-radius: 10px;
 }
+
 .title {
   font-size: 24px;
   padding-top: 15px;
@@ -49,22 +54,34 @@
   font-style: italic;
   margin-top: 0px;
 }
+
 .text {
   width: 250px;
   margin-left: 20px;
 }
+
 .telephone {
   width: 250px;
   margin-left: 20px;
 }
+
 .select {
   margin-left: 20px;
 }
+
+.btn:hover {
+  background-color: #91ad91;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
 .btn {
   width: 85px;
   height: 21px;
   background-color: aliceblue;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -72,6 +89,7 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .green-card {
   background-color: rgb(123, 192, 123);
   width: 300px;
@@ -83,7 +101,9 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
+
 .red-card {
   background-color: red;
   width: 300px;
@@ -95,7 +115,9 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
+
 .yellow-card {
   background-color: yellow;
   width: 300px;
@@ -107,7 +129,9 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-start;
   justify-content: center;
   padding-left: 3px;
+  position: relative;
 }
+
 .main-container {
   display: flex;
   justify-content: flex-start;
@@ -116,4 +140,68 @@ input[type="number"]::-webkit-inner-spin-button {
   flex-wrap: wrap;
   margin-top: 10px;
   overflow: auto;
+}
+
+.button-container {
+  margin-top: 10px;
+  bottom: 10px;
+  right: 10px;
+}
+
+.delete-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}
+
+.editor {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+
+  right: 2px;
+  top: 2px;
+}
+
+.save-button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+}
+
+.cancellation-button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}
+
+.input-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.input-phone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+
+.input-select {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 30px;
 }
