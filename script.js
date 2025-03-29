@@ -37,8 +37,8 @@ async function getData() {
     const response = await fetch("http://localhost:8080/task/all", {
       method: "GET",
     });
-    if (response) {
-      const data = await response.json();
+    const data = await response.json();
+    if (data) {
       dataCard = data;
       render()
     }
@@ -118,7 +118,7 @@ async function putData(id, user) {
       await getData()
     }
   } catch (error) {
-    console.log(e);А
+    console.log(e);
   }
 };
 
@@ -126,7 +126,6 @@ function render() {
   blockMainContainer.innerHTML = "";
   let id = 0;
   dataCard.forEach((item) => {
-    console.log(item)
     const newCard = document.createElement("div");
     newCard.id = id++;
     switch (item.jobPosition) {
