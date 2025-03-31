@@ -10,7 +10,7 @@
 }
 
 .main {
-  background: url("images/website.jpg");
+  background: url("static/website.jpg");
   width: 100%;
   height: 100vh;
   background-size: cover;
