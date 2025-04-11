@@ -1,44 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Employees</title>
-    <link rel="icon" href="images/header_icon.svg" type="images/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="main">
-      <h1 class="title">Список сотрудников</h1>
-      <div class="container">
-        <div class="card">
-          <input id="inputName" class="text" placeholder="Имя" />
-          <input
-            id="inputTelephone"
-            class="telephone"
-            placeholder="Телефон"
-            type="number"
-          />
-          <div class="select">
-            <select id="mySelect" name="options">
-              <option hidden selected>Должность</option>
-              <option value="developer">Разработчик</option>
-              <option value="qa">Тестировщик</option>
-              <option value="devops">Девопс</option>
-              <option value="admin">Админ</option>
-            </select>
-          </div>
-          <button id="createBtn" type="button" class="btn">Добавить</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employees</title>
+  <link rel="icon" href="static/header_icon.svg" type="images/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="main">
+    <h1 class="title">Список сотрудников</h1>
+    <div class="container">
+      <div class="card">
+        <input id="inputName" class="text" placeholder="Имя" />
+        <input id="inputTelephone" class="telephone" placeholder="Телефон" type="number" />
+        <div class="select">
+          <select id="mySelect" name="options">
+            <option hidden selected>Должность</option>
+            <option value="developer">Разработчик</option>
+            <option value="qa">Тестировщик</option>
+            <option value="devops">Девопс</option>
+            <option value="admin">Админ</option>
+          </select>
         </div>
-        <div id="main-container" class="main-container"></div>
+        <button id="createBtn" type="button" class="btn">Добавить</button>
       </div>
+      <div id="main-container" class="main-container"></div>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>
